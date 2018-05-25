@@ -1,32 +1,39 @@
 import React, {Component, Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {changeAuth} from '../actions';
+import {signOut} from '../actions';
 
 class Nav extends Component{
     renderLinks(){
+        const {auth, signOut} = this.props;
         
-            const {auth, changeAuth} = this.props;
-            
-            if(auth){
-            return(
-                <Fragment>
-                    <li>
-                        <Link to="/secret-doc">Secret Docs</Link>
-                    </li>
-                    <li>
-                        <Link to="/operative-list">Operative List</Link>
-                    </li>
-                    <li>
-                    <button className="btn red" onClick={()=> changeAuth(false)}>Sign Out</button>
-                    </li>
-                </Fragment>
-            )}
-            return (
+        if(auth){
+        return(
+            <Fragment>
+                <li>
+                    <Link to="/movie-quote">Movie Quote</Link>
+                </li>
+                <li>
+                    <Link to="/secret-doc">Secret Docs</Link>
+                </li>
+                <li>
+                    <Link to="/operative-list">Operative List</Link>
+                </li>
+                <li>
+                    <button onClick={signOut} className="btn grey">Sign Out</button>
+                </li>
+            </Fragment>
+        )}
+        return (
+        <Fragment>
             <li>
-                <button className="btn" onClick={()=> changeAuth(true)}>Sign In</button>
+            <Link to="/sign-in">Sign In</Link>
             </li>
-            )
+            <li>
+            <Link to="/sign-up">Sign Up</Link>
+            </li>
+        </Fragment>
+        )
         
     }
     render(){
@@ -55,4 +62,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,{changeAuth})(Nav);
+export default connect(mapStateToProps,{signOut})(Nav);

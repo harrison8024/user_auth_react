@@ -7,6 +7,10 @@ import About from './about';
 import SecretDoc from './secret_doc';
 import OperativeList from './operative_list';
 import auth from '../hoc/auth';
+import SignUp from './sign-up';
+import SignIn from './sign_in';
+import MovieQuote from './movie_quote';
+import redirect from '../hoc/redirect';
 
 
 const App = () => (
@@ -17,6 +21,9 @@ const App = () => (
             <Route path="/about" component={About}/>
             <Route path="/secret-doc" component={auth(SecretDoc)}/>
             <Route path="/operative-list" component={auth(OperativeList)}/>
+            <Route path="/sign-up" component={redirect(SignUp,'/movie-quote')}/>
+            <Route path="/sign-in" component={redirect(SignIn,'/movie-quote')}/>
+            <Route path="/movie-quote" component={auth(MovieQuote)}/>
        </div>   
     </div>  
 );
