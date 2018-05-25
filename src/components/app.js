@@ -23,7 +23,7 @@ const App = () => (
             <Route path="/operative-list" component={auth(OperativeList)}/>
             <Route path="/sign-up" component={redirect(SignUp,'/movie-quote')}/>
             <Route path="/sign-in" component={redirect(SignIn,'/movie-quote')}/>
-            <Route path="/movie-quote" component={MovieQuote}/>
+            <Route path="/movie-quote" component={auth(MovieQuote)}/>
        </div>   
     </div>  
 );

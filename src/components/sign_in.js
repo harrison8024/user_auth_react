@@ -1,17 +1,21 @@
 import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form';
 import {connect} from 'react-redux';
-import {signIn} from '../actions';
+import {signIn, clearAuthError} from '../actions';
 import {renderInput} from '../helpers';
 
 class SignIn extends Component {
+
+    componentWillUnmount(){
+        this.props.clearAuthError();
+    }
 
     handleSignIn(values){
         this.props.signIn(values);
     }
 
     render(){
-        const {handleSubmit} = this.props;
+        const {handleSubmit, authError} = this.props;
         return (
             <div className="row">
                 <div className="col s8 offset-s2">
@@ -23,6 +27,7 @@ class SignIn extends Component {
                                 <Field name="password" label="Password" component={renderInput} type="password"/>
                                 <div className="row right-align">
                                     <button className="btn grey darken-4">Sign In</button>
+                                    <p className="center red-text">{authError}</p>
                                 </div>
                             </form>
                         </div>
@@ -50,4 +55,10 @@ SignIn = reduxForm({
     validate: validate
 })(SignIn);
 
-export default connect(null, {signIn})(SignIn);
+function mapStateToProps(state){
+    return {
+        authError: state.user.error
+    }
+}
+
+export default connect(mapStateToProps, {signIn, clearAuthError})(SignIn);
